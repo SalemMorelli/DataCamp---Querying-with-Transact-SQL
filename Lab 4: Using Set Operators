@@ -1,0 +1,20 @@
+##Retrieving Customer Addresses
+Write a query that retrieves the company name, first line of the street address, 
+city, and a column named AddressType with the value 'Billing' for customers where the address
+type in the SalesLT.CustomerAddress table is 
+'Main Office'. Make sure to use the aliases provided, and default column names elsewhere.
+
+-- select the CompanyName, AddressLine1 columns
+-- alias as per the instructions
+SELECT c.CompanyName, a.City, a.AddressLine1, 'Billing' AS AddressType
+FROM SalesLT.Customer AS c
+JOIN SalesLT.CustomerAddress AS ca
+-- join based on CustomerID
+ON c.CustomerID = ca.CustomerID
+-- join another table
+JOIN SalesLT.Address AS a
+-- join based on AddressID
+ON ca.AddressID = a.AddressID
+-- filter for where the correct AddressType
+WHERE AddressType = 'Main Office';
+
