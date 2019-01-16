@@ -14,3 +14,22 @@ where ShippedDate IS NOT NULL;
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~Question 2
+
+Using the Suppliers table, select the company name and use a simple IIF expression to display 'outdated' if a company 
+has a fax number, or 'modern' if it doesn't. Alias the result of the IIF expression to Status.
+
+
+select CompanyName,
+  IIF (Fax is null, 'modern', 'outdated') AS Status
+from Suppliers;
+
+~~~~~~~~~~~~~~~~~~~~~~~Question 3
+
+Select from the Customers, Orders, and Order Details tables. Note that you need to use [Order Details] since the table 
+name contains whitespace.
+
+Use GROUP BY and ROLLUP() to get the total quantity ordered by all countries, while maintaining the total per country 
+in your result set.
+
+Your first column should be the country, and the second column the total quantity ordered by that country, aliased as TotalQuantity.
+
