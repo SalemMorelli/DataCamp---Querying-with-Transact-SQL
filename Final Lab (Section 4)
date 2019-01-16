@@ -1,0 +1,16 @@
+~~~~~~~~~~~~~~~~~~~~~~Question 1
+
+Use CHOOSE() and MONTH() to get the season in which each order was shipped from the Orders table. You should select the
+order ID, shipped date, and then the season aliased as ShippedSeason. You can copy and paste the below into your query.
+
+'Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter'
+
+Be careful to filter out any NULL shipped dates.
+
+select OrderID, ShippedDate, CHOOSE(MONTH(ShippedDate), 'Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 
+'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter') as ShippedSeason
+from Orders
+where ShippedDate IS NOT NULL;
+
+
+~~~~~~~~~~~~~~~~~~~~~~~Question 2
