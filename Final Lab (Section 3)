@@ -33,3 +33,11 @@ Insert into this table the names of every product from the Products table. Note 
 are two syntaxes for the INSERT INTO statement. Use the syntax that does not specify the column names since the table only has one field.
 Select all columns from the ProductNames table you created.
 
+CREATE TABLE #ProductNames(ProductName VARCHAR(40))
+
+INSERT INTO #ProductNames
+SELECT ProductName
+FROM Products;
+
+SELECT * FROM #ProductNames;
+
