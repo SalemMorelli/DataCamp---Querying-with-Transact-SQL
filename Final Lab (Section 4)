@@ -75,7 +75,11 @@ Per Category	1	2	3	4	5	6	7	8
 Average Unit Price	37.98	23.06	25.16	28.73	20.25	54.01	32.37	20.68
 
 
-
+SELECT * FROM(
+SELECT CategoryID as [PerCategory], ROUND(AVG(UnitPrice), 2) as [AverageUnitPrice]
+FROM Products
+GROUP BY CategoryID) as s
+PIVOT(AVG(AverageUnitPrice) FOR PerCategory IN ([1], [2], [3], [4], [5], [6], [7], [8])) as p;
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~Question 6
@@ -113,7 +117,29 @@ Select * From Region;
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~Question 8
 
+Write a script that safely checks whether a certain region exists:
 
+Declare a custom region @region called 'Space', of type NVARCHAR(25).
+Use IF NOT EXISTS, ELSE, and BEGIN..END to:
+
+throw an error with THROW 50001, 'Error!', 0 if no record whose RegionDescription matches @region exists.
+select all columns for that region from the Region table if the record does exist.
+Notes:
+
+Specify the Region table as Region, not dbo.Region.
+Use SELECT * FROM Region <fill in> everywhere.
+
+DECLARE @region NVARCHAR(25) = 'Space';
+DECLARE @error VARCHAR(30) = 'Error!';
+
+IF NOT EXISTS (SELECT * FROM Region WHERE RegionDescription = @region)
+BEGIN
+  THROW 50001, 'Error!', 0;
+END
+ELSE
+BEGIN
+  SELECT * FROM Region WHERE RegionDescription = @region;
+END
 
 
 
