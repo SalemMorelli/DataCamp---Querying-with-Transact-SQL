@@ -99,6 +99,20 @@ WHERE RegionID = 5;
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~Question 7
 
+Update the region descriptions in the Region table to be all uppercase, using SET and UPPER().
+
+Next, select all data from the table to view your updates.
+
+Note: When you execute a query and the result is fetched, the database will be rolled back to its initial state. 
+This means that you can click "Run Code" repeatedly, starting with a clean slate every time.
+
+UPDATE Region
+SET RegionDescription = UPPER(RegionDescription);
+
+Select * From Region;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~Question 8
+
 
 
 
