@@ -51,5 +51,29 @@ Then use CASE WHEN, GROUPING_ID(), and ROLLUP() to add a column called Legend, w
 When the GROUPING_ID is 0, show '' (i.e., nothing)
 When the GROUPING_ID is 1, show Subtotal for << Country >>'
 
+--when ContactTitle is NULL the groupin_ID is always 1 and 0 in any other case. The GROUP BY AND ROLLUP aspects of this query are the most important because they ensure you add up the number of representatives for a particular country; so they must go together
+Select Country, ContactTitle, Count(ContactTitle) as Count,
+   Case 
+       when GROUPING_ID(ContactTitle) = 0 THEN ''
+       when GROUPING_ID(ContactTitle) = 1 THEN 'Subtotal for ' +Country
+       END AS Legend
+--GROUPING_ID(ContactTitle) as Grouping_ID
+FROM Customers
+GROUP BY ROLLUP (Country, ContactTitle);
+
+~~~~~~~~~~~~~~~~~~~~~~~~~Question 5
+
+Convert the following query to be pivoted, using PIVOT().
+
+SELECT CategoryID, AVG(UnitPrice)
+FROM Products
+GROUP BY CategoryID;
+Your result set should look like this:
+
+Per Category	1	2	3	4	5	6	7	8
+Average Unit Price	37.98	23.06	25.16	28.73	20.25	54.01	32.37	20.68
+
+
+
 
 
