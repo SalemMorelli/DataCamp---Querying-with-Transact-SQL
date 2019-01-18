@@ -66,20 +66,26 @@ GROUP BY ROLLUP (Country, ContactTitle);
 
 Convert the following query to be pivoted, using PIVOT().
 
-SELECT CategoryID, AVG(UnitPrice)
-FROM Products
-GROUP BY CategoryID;
-Your result set should look like this:
-
-Per Category	1	2	3	4	5	6	7	8
-Average Unit Price	37.98	23.06	25.16	28.73	20.25	54.01	32.37	20.68
-
-
-SELECT * FROM(
+--this part is crucial in selecting the correct headers
+SELECT 'Average Unit Price' AS "Per Category", 
+FORMAT(ROUND([1],2),'0.#####') AS [1],
+FORMAT(ROUND([2],2),'0.#####') AS [2],
+FORMAT(ROUND([3],2),'0.#####') AS [3],
+FORMAT(ROUND([4],2),'0.#####') AS [4],
+FORMAT(ROUND([5],2),'0.#####') AS [5],
+FORMAT(ROUND([6],2),'0.#####') AS [6],
+FORMAT(ROUND([7],2),'0.#####') AS [7],
+FORMAT(ROUND([8],2),'0.#####') AS [8]
+FROM
+(
 SELECT CategoryID as [PerCategory], ROUND(AVG(UnitPrice), 2) as [AverageUnitPrice]
 FROM Products
-GROUP BY CategoryID) as s
-PIVOT(AVG(AverageUnitPrice) FOR PerCategory IN ([1], [2], [3], [4], [5], [6], [7], [8])) as p;
+GROUP BY CategoryID
+) as sourceTable
+PIVOT
+(
+AVG(AverageUnitPrice) FOR PerCategory IN ([1], [2], [3], [4], [5], [6], [7], [8])
+) as pivotTable;
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~Question 6
